@@ -1,0 +1,110 @@
+---
+const toolkit = [
+  {
+    category: "Workflows & Productivity Tools",
+    tools: [
+      {
+        name: "Basecamp",
+        description: "Project management and team collaboration",
+        url: "https://basecamp.com/",
+      },
+      {
+        name: "Asana",
+        description: "Task and project tracking",
+        url: "https://asana.com/",
+      },
+    ],
+  },
+  {
+    category: "Business Analytics & Dashboards",
+    tools: [
+      {
+        name: "Tableau",
+        description: "Data visualization and business intelligence",
+        url: "https://www.tableau.com/",
+      },
+    ],
+  },
+  {
+    category: "E-Signature Applications",
+    tools: [
+      {
+        name: "Adobe eSign Services",
+        description: "Digital signature solutions",
+        url: "https://acrobat.adobe.com/us/en/sign.html",
+      },
+      {
+        name: "DocuSign",
+        description: "Electronic agreement platform",
+        url: "https://www.docusign.com/",
+      },
+    ],
+  },
+  {
+    category: "Cloud Accounting Solutions",
+    tools: [
+      {
+        name: "Wave",
+        description: "Free accounting software for small businesses",
+        url: "https://www.waveapps.com/",
+      },
+      {
+        name: "QuickBooks Online",
+        description: "Cloud-based accounting software",
+        url: "https://quickbooks.intuit.com/online/",
+      },
+    ],
+  },
+];
+---
+
+<style>
+  .toolkit-category {
+    margin-bottom: 2rem;
+  }
+  .tool-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+  }
+  .tool-list li {
+    margin-bottom: 0.5rem;
+  }
+  .tool-link {
+    font-weight: 600;
+    color: var(--astro-link-color, #0077cc);
+    text-decoration: none;
+  }
+  .tool-link:hover {
+    text-decoration: underline;
+  }
+  .tool-description {
+    font-size: 0.9rem;
+    color: #555;
+  }
+</style>
+
+<div>
+  {
+    toolkit.map(({ category, tools }) => (
+      <section class="toolkit-category" aria-label={category}>
+        <h3>{category}</h3>
+        <ul class="tool-list">
+          {tools.map(({ name, description, url }) => (
+            <li>
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="tool-link"
+              >
+                {name}
+              </a>
+              <div class="tool-description">{description}</div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</div>
