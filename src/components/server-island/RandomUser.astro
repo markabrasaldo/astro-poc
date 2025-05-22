@@ -1,0 +1,22 @@
+---
+const res = await fetch("https://randomuser.me/api/");
+const data = await res.json();
+const user = data.results[0];
+---
+
+<div
+  class="flex items-center gap-4 p-4 bg-white dark:bg-gray-800 shadow rounded"
+>
+  <img
+    src={user.picture.medium}
+    alt={user.name.first}
+    class="rounded-full w-16 h-16"
+  />
+  <div>
+    <p class="text-lg font-semibold text-gray-900 dark:text-white">
+      {user.name.first}
+      {user.name.last}
+    </p>
+    <p class="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
+  </div>
+</div>

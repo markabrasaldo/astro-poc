@@ -1,0 +1,19 @@
+---
+const { resourceURL, resourceImage, resourceType, resourceTitle } = Astro.props;
+---
+
+<a href={resourceURL} data-astro-prefetch>
+  <div class="bg-white text-black rounded shadow-sm overflow-hidden">
+    <img
+      src={resourceImage.url}
+      alt={resourceImage.alt}
+      class="w-full h-40 object-cover"
+    />
+    <div class="p-4">
+      <p class="text-xs font-semibold text-orange-500 uppercase">
+        {resourceType}
+      </p>
+      <h3 class="font-bold text-md mt-2">{resourceTitle}</h3>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,60 @@
+---
+import Hero from "../components/landing-page/Hero.astro";
+import RandomUser from "../components/server-island/RandomUser.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout>
+  <!-- Wrapper to center button -->
+  <div class="flex mt-8 justify-center">
+    <button
+      class="bg-[#FA502E] hover:bg-[#e54822] text-white px-4 py-2 text-sm font-semibold rounded-sm uppercase flex items-center gap-1"
+      onclick="window.location.reload();"
+    >
+      Refresh Page
+    </button>
+  </div>
+
+  <h1 class="text-xl font-bold my-4 text-center">
+    Astro component (SSG rendered by default)
+  </h1>
+  <p class="mb-4 text-center">
+    This is a common astro static component just static html.
+  </p>
+
+  <div class="border rounded p-6 text-center shadow-sm">
+    <div class="text-4xl mb-4 text-orange-500">👩‍💼</div>
+    <h4 class="font-bold text-lg text-gray-800 mb-2">Promote your business!</h4>
+    <p class="text-sm text-gray-600 mb-4">
+      We can help you reach out, get feedback and build your online community
+      through Internet-based marketing and social media. Expand your reach.
+      Establish your online presence.
+    </p>
+    <a
+      href="#"
+      class="inline-block text-orange-600 hover:underline text-sm font-semibold"
+    >
+      See more →
+    </a>
+  </div>
+
+  <h1 class="text-xl font-bold my-4 text-center">Sample User Card (SSR)</h1>
+  <p class="mb-4 text-center">
+    This is a test on how deferred server island with fallback compares with
+    other Astro components on page load. I think this is almost similar to a RSC
+    wrapped in React Suspense.
+  </p>
+
+  <RandomUser server:defer>
+    <div
+      slot="fallback"
+      class="animate-pulse flex items-center gap-4 p-4 bg-white dark:bg-gray-800 shadow rounded"
+    >
+      <div class="bg-gray-300 dark:bg-gray-700 rounded-full w-16 h-16"></div>
+      <div class="flex-1 space-y-2">
+        <div class="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4"></div>
+        <div class="h-4 bg-gray-200 dark:bg-gray-600 rounded w-1/2"></div>
+      </div>
+    </div>
+  </RandomUser>
+</MainLayout>
