@@ -1,0 +1,184 @@
+---
+import { actions, isInputError } from "astro:actions";
+import MainLayout from "../layouts/MainLayout.astro";
+import { ClientRouter } from "astro:transitions";
+import SuccessView from "../components/consultation/SuccessView.astro";
+
+export const prerender = false;
+
+const result = Astro.getActionResult(actions.postConsultation);
+
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+
+console.log("inputErrors", inputErrors);
+const successMsg = result?.data?.message;
+---
+
+<MainLayout>
+  {
+    successMsg ? (
+      <SuccessView successMsg={successMsg} />
+    ) : (
+      <>
+        <ClientRouter />
+        <form
+          id="consultForm"
+          class="w-full max-w-xl mx-auto p-6 space-y-6"
+          method="POST"
+          action={actions.postConsultation}
+          enctype="application/x-www-form-urlencoded"
+        >
+          <h2 class="text-3xl font-semibold text-orange-800 text-center">
+            Get in Touch
+          </h2>
+          <div class="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-md shadow-sm">
+            <p class="text-sm text-orange-800">
+              This form is using astro actions that has form and server
+              validation.
+              <br /> And will post to an API that will return message with
+              refID.
+              <br /> This is very similar with form submiting via server action.
+            </p>
+          </div>
+          <div>
+            <label
+              for="fname"
+              class="block text-sm font-medium text-orange-900"
+            >
+              First Name<span class="text-red-500">*</span>
+            </label>
+            <input
+              required
+              transition:persist
+              type="text"
+              id="fname"
+              name="fname"
+              class="mt-1 w-full px-4 py-2 border border-orange-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+            />
+            {inputErrors.fname && (
+              <p
+                id="fname-error"
+                class="mt-1 text-sm text-red-600"
+                role="alert"
+              >
+                {inputErrors.fname.join(", ")}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label
+              for="lname"
+              class="block text-sm font-medium text-orange-900"
+            >
+              Last Name<span class="text-red-500">*</span>
+            </label>
+            <input
+              required
+              transition:persist
+              type="text"
+              id="lname"
+              name="lname"
+              class="mt-1 w-full px-4 py-2 border border-orange-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+            />
+            {inputErrors.lname && (
+              <p
+                id="lname-error"
+                class="mt-1 text-sm text-red-600"
+                role="alert"
+              >
+                {inputErrors.lname.join(", ")}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-medium text-orange-900"
+            >
+              Email<span class="text-red-500">*</span>
+            </label>
+            <input
+              required
+              transition:persist
+              type="email"
+              id="email"
+              name="email"
+              class="mt-1 w-full px-4 py-2 border border-orange-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+            />
+            {inputErrors.email && (
+              <p
+                id="email-error"
+                class="mt-1 text-sm text-red-600"
+                role="alert"
+              >
+                {inputErrors.email.join(", ")}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label
+              for="contactNumber"
+              class="block text-sm font-medium text-orange-900"
+            >
+              Contact Number<span class="text-red-500">*</span>
+            </label>
+            <input
+              required
+              transition:persist
+              type="tel"
+              id="contactNumber"
+              name="contactNumber"
+              class="mt-1 w-full px-4 py-2 border border-orange-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+            />
+            {inputErrors.contactNumber && (
+              <p
+                id="contactNumber-error"
+                class="mt-1 text-sm text-red-600"
+                role="alert"
+              >
+                {inputErrors.contactNumber.join(", ")}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label
+              for="company"
+              class="block text-sm font-medium text-orange-900"
+            >
+              Company<span class="text-red-500">*</span>
+            </label>
+            <input
+              required
+              transition:persist
+              type="text"
+              id="company"
+              name="company"
+              class="mt-1 w-full px-4 py-2 border border-orange-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+            />
+            {inputErrors.company && (
+              <p
+                id="company-error"
+                class="mt-1 text-sm text-red-600"
+                role="alert"
+              >
+                {inputErrors.company.join(", ")}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <input
+              type="submit"
+              value="Submit"
+              class="w-full bg-orange-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-orange-700 transition-colors duration-300 cursor-pointer"
+            />
+          </div>
+        </form>
+      </>
+    )
+  }
+</MainLayout>

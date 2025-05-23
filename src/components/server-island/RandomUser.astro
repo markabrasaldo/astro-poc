@@ -1,22 +1,49 @@
 ---
-const res = await fetch("https://randomuser.me/api/");
-const data = await res.json();
-const user = data.results[0];
+const fetchUserData = async () => {
+  const randomNumber = Math.floor(Math.random() * 10) + 1;
+  const url = `https://api.restful-api.dev/objects?id=${randomNumber}`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    return data[0];
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return null;
+  }
+};
+
+const item = await fetchUserData();
+
+console.log("item", item);
 ---
 
-<div
-  class="flex items-center gap-4 p-4 bg-white dark:bg-gray-800 shadow rounded"
->
-  <img
-    src={user.picture.medium}
-    alt={user.name.first}
-    class="rounded-full w-16 h-16"
-  />
-  <div>
-    <p class="text-lg font-semibold text-gray-900 dark:text-white">
-      {user.name.first}
-      {user.name.last}
+{
+  item ? (
+    <div class="flex items-center gap-4 p-4 bg-white dark:bg-gray-800 shadow rounded">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/3273/3273898.png"
+        alt={item.name}
+        class="rounded-full w-16 h-16"
+      />
+      <div>
+        <p class="text-lg font-semibold text-gray-900 dark:text-white">
+          {item.name}
+        </p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          {Object.values(item.data)[0] ?? ""}
+        </p>
+      </div>
+    </div>
+  ) : (
+    <p class="text-center text-gray-600 dark:text-gray-400">
+      User data could not be loaded.
     </p>
-    <p class="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
-  </div>
-</div>
+  )
+}
