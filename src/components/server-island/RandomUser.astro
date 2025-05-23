@@ -36,9 +36,11 @@ console.log("item", item);
         <p class="text-lg font-semibold text-gray-900 dark:text-white">
           {item.name}
         </p>
-        <p class="text-sm text-gray-600 dark:text-gray-400">
-          {Object.values(item.data)[0] ?? ""}
-        </p>
+        {item.data && (
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            {Object.values(item.data)[0] ?? ""}
+          </p>
+        )}
       </div>
     </div>
   ) : (
